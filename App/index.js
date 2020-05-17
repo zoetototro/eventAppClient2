@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import { AuthContext } from "./context";
-import { SignIn, Search, Details, Search2, Splash } from "./Screens";
+import { Search, Details, Search2, Splash } from "./Screens";
 
 import { Home } from "./screens/home";
 import { Message } from "./screens/message";
@@ -14,6 +14,7 @@ import { Profile } from "./screens/profile";
 import { Timeline } from "./screens/timeline";
 import { CreateAccount } from "./screens/createAccount";
 import { EditProfile } from "./screens/editProfile";
+import { SignIn } from "./screens/signIn";
 import { Icon, View } from "native-base";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";

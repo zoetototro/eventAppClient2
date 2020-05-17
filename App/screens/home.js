@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     height: 200,
     backgroundColor: "#ffffff",
   },
+  miniText: {
+    fontSize: 14,
+  },
 });
 
 const ScreenContainer = ({ children }) => (
@@ -16,14 +19,14 @@ const ScreenContainer = ({ children }) => (
 );
 
 const items = [
-  { name: "あゆみ" },
-  { name: "リリー" },
-  { name: "まさひろ" },
-  { name: "文彦" },
-  { name: "ひでき" },
-  { name: "たける" },
-  { name: "池内" },
-  { name: "加藤" },
+  { age: 24, description: "初めまして", place: "東京都" },
+  { age: 24, description: "初めまして", place: "東京都" },
+  { age: 24, description: "初めまして", place: "東京都" },
+  { age: 24, description: "初めまして", place: "東京都" },
+  { age: 24, description: "初めまして", place: "東京都" },
+  { age: 24, description: "初めまして", place: "東京都" },
+  { age: 24, description: "初めまして", place: "東京都" },
+  { age: 24, description: "初めまして", place: "東京都" },
 ];
 
 export const Home = ({ navigation }) => (
@@ -48,9 +51,13 @@ export const Home = ({ navigation }) => (
           <CardItem
             button
             style={styles.itemName}
-            onPress={() => navigation.push("Details", { name: item.name })}
+            onPress={() =>
+              navigation.push("Details", { name: item.description })
+            }
           >
-            <Text>{item.name}</Text>
+            <Text style={styles.miniText}>
+              {item.age}歳 {item.place}
+            </Text>
           </CardItem>
         </Card>
       )}

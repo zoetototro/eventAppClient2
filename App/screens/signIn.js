@@ -1,24 +1,13 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, Button } from "react-native";
 import { AuthContext } from "./../context";
-import { Button, Input, Text, Item } from "native-base";
+import { Input, Text, Item } from "native-base";
 
 const styles = StyleSheet.create({
   container: {
+    padding: 16,
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    padding: 16,
-  },
-  button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginVertical: 10,
-    borderRadius: 5,
-  },
-  item: {
-    marginBottom: 8,
   },
 });
 
@@ -26,8 +15,9 @@ const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const CreateAccount = () => {
-  const { signUp } = React.useContext(AuthContext);
+export const SignIn = ({ navigation }) => {
+  const { signIn } = React.useContext(AuthContext);
+
   return (
     <ScreenContainer>
       <Item style={styles.item} regular>
@@ -36,10 +26,11 @@ export const CreateAccount = () => {
       <Item style={styles.item} regular>
         <Input placeholder="パスワード" />
       </Item>
-      <Button>
-        <Text>送信</Text>
-      </Button>
-      <Button title="Sign Up" onPress={() => signUp()} />
+      <Button title="ログイン" onPress={() => signIn()} />
+      <Button
+        title="新規会員登録"
+        onPress={() => navigation.push("CreateAccount")}
+      />
     </ScreenContainer>
   );
 };

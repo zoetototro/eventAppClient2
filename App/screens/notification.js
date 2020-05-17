@@ -20,11 +20,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginVertical: 10,
-    borderRadius: 5,
+    width: 100,
+    height: 30,
   },
+  miniText: {
+    fontSize: 14,
+  },
+  list: {
+    height: "100%",
+  },
+  listItem: {},
 });
 
 const ScreenContainer = ({ children }) => (
@@ -34,26 +39,30 @@ const ScreenContainer = ({ children }) => (
 export const Notification = ({ navigation }) => (
   <ScreenContainer>
     <Content>
-      <Icon name="home" />
-      <Icon
-        ios="ios-menu"
-        android="md-menu"
-        style={{ fontSize: 20, color: "red" }}
-      />
-      <Icon type="FontAwesome" name="home" />
-      <List>
-        <ListItem avatar>
-          <Left>
-            <Thumbnail
-              source={{
-                uri: "https://source.unsplash.com/user/chrisjoelcampbell",
-              }}
-            />
-          </Left>
-          <Body>
-            <Icon active name="airplane" />
-          </Body>
-        </ListItem>
+      <List style={styles.list}>
+        {[0, 1, 2, 3, 4, 5].map((v) => {
+          return (
+            <ListItem style={styles.listItem} avatar>
+              <Left>
+                <Thumbnail
+                  source={{
+                    uri: "https://source.unsplash.com/user/chrisjoelcampbell",
+                  }}
+                />
+              </Left>
+              <Body>
+                <Text>Kumar Pratik</Text>
+                <Text note>Doing what you like will always keep you happy</Text>
+              </Body>
+              <Right>
+                <Text note>3:43 pm</Text>
+                <Button style={styles.button}>
+                  <Text style={styles.miniText}>マッチする</Text>
+                </Button>
+              </Right>
+            </ListItem>
+          );
+        })}
       </List>
     </Content>
   </ScreenContainer>
