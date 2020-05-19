@@ -9,6 +9,7 @@ import { Search, Details, Search2, Splash } from "./Screens";
 
 import { Home } from "./screens/home";
 import { Message } from "./screens/message";
+import { ChatDetail } from "./screens/chatDetail";
 import { Notification } from "./screens/notification";
 import { Profile } from "./screens/profile";
 import { Timeline } from "./screens/timeline";
@@ -87,15 +88,9 @@ const TimelineStackScreen = () => (
 );
 
 const MessageStackScreen = () => (
-  <MessageStack.Navigator>
+  <MessageStack.Navigator initialRouteName="Message">
     <MessageStack.Screen name="メッセージ" component={Message} />
-    <MessageStack.Screen
-      name="Details"
-      component={Details}
-      options={({ route }) => ({
-        title: route.params.name,
-      })}
-    />
+    <MessageStack.Screen name="ChatDetail" component={ChatDetail} />
   </MessageStack.Navigator>
 );
 

@@ -27,7 +27,7 @@ export const Message = ({ navigation }) => (
       <List>
         {[0, 1, 2, 3, 4, 5].map((v) => {
           return (
-            <ListItem avatar>
+            <ListItem onPress={() => navigation.push("ChatDetail")} avatar>
               <Left>
                 <Thumbnail
                   source={{
