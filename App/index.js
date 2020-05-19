@@ -13,9 +13,12 @@ import { Notification } from "./screens/notification";
 import { Profile } from "./screens/profile";
 import { Timeline } from "./screens/timeline";
 import { CreateAccount } from "./screens/createAccount";
+import { Config } from "./screens/config";
+import { Invitation } from "./screens/invitation";
+import { AgeCheck } from "./screens/ageCheck";
 import { EditProfile } from "./screens/editProfile";
 import { SignIn } from "./screens/signIn";
-import { Icon, View } from "native-base";
+import { Icon, View, Button } from "native-base";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -27,6 +30,9 @@ const NotificationStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const TimelineStack = createStackNavigator();
+const InvitationStack = createStackNavigator();
+const AgeCheckStack = createStackNavigator();
+const ConfigStack = createStackNavigator();
 
 const AuthStackScreen = () => (
   <AuthStack.Navigator>
@@ -41,6 +47,24 @@ const AuthStackScreen = () => (
       options={{ title: "Match" }}
     />
   </AuthStack.Navigator>
+);
+
+const InvitationStackScreen = () => (
+  <InvitationStack.Navigator>
+    <InvitationStack.Screen name="友達招待" component={Invitation} />
+  </InvitationStack.Navigator>
+);
+
+const AgeCheckStackScreen = () => (
+  <AgeCheckStack.Navigator>
+    <AgeCheckStack.Screen name="年齢確認" component={AgeCheck} />
+  </AgeCheckStack.Navigator>
+);
+
+const ConfigStackScreen = () => (
+  <ConfigStack.Navigator>
+    <ConfigStack.Screen name="設定" component={Config}></ConfigStack.Screen>
+  </ConfigStack.Navigator>
 );
 
 const HomeStackScreen = () => (
@@ -58,13 +82,13 @@ const HomeStackScreen = () => (
 
 const TimelineStackScreen = () => (
   <TimelineStack.Navigator>
-    <TimelineStack.Screen name="Timeline" component={Timeline} />
+    <TimelineStack.Screen name="Today's Picks" component={Timeline} />
   </TimelineStack.Navigator>
 );
 
 const MessageStackScreen = () => (
   <MessageStack.Navigator>
-    <MessageStack.Screen name="Message" component={Message} />
+    <MessageStack.Screen name="メッセージ" component={Message} />
     <MessageStack.Screen
       name="Details"
       component={Details}
@@ -77,7 +101,7 @@ const MessageStackScreen = () => (
 
 const NotificationStackScreen = () => (
   <NotificationStack.Navigator>
-    <NotificationStack.Screen name="Notification" component={Notification} />
+    <NotificationStack.Screen name="いいね" component={Notification} />
     <NotificationStack.Screen
       name="Details"
       component={Details}
@@ -97,7 +121,19 @@ const SearchStackScreen = () => (
 
 const ProfileStackScreen = () => (
   <ProfileStack.Navigator>
-    <ProfileStack.Screen name="あなたのプロフィール" component={Profile} />
+    <ProfileStack.Screen
+      name="あなたのプロフィール"
+      component={Profile}
+      options={{
+        headerRight: () => (
+          <Button
+            onPress={() => alert("This is a button!")}
+            title="Info"
+            color="#fff"
+          />
+        ),
+      }}
+    />
   </ProfileStack.Navigator>
 );
 
@@ -107,8 +143,10 @@ const TabsScreen = () => (
       name="ホーム"
       component={HomeStackScreen}
       options={{
-        tabBarLabel: "ホーム",
-        tabBarIcon: ({ color, size }) => <Icon name="menu" />,
+        tabBarLabel: "探す",
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="search" style={{ fontSize: 20, color: "#dadfe7" }} />
+        ),
       }}
     />
     <Tabs.Screen
@@ -116,7 +154,9 @@ const TabsScreen = () => (
       component={TimelineStackScreen}
       options={{
         tabBarLabel: "イベント",
-        tabBarIcon: ({ color, size }) => <Icon name="keypad" />,
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="keypad" style={{ fontSize: 20, color: "#fe5269" }} />
+        ),
       }}
     />
     <Tabs.Screen
@@ -124,23 +164,29 @@ const TabsScreen = () => (
       component={MessageStackScreen}
       options={{
         tabBarLabel: "メッセージ",
-        tabBarIcon: ({ color, size }) => <Icon name="chatboxes" />,
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="chatboxes" style={{ fontSize: 20, color: "#2abcff" }} />
+        ),
       }}
     />
     <Tabs.Screen
       name="通知"
       component={NotificationStackScreen}
       options={{
-        tabBarLabel: "メッセージ",
-        tabBarIcon: ({ color, size }) => <Icon name="chatboxes" />,
+        tabBarLabel: "いいね",
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="heart" style={{ fontSize: 20, color: "#57ebc6" }} />
+        ),
       }}
     />
     <Tabs.Screen
       name="プロフィール"
       component={ProfileStackScreen}
       options={{
-        tabBarLabel: "メッセージ",
-        tabBarIcon: ({ color, size }) => <Icon name="person" />,
+        tabBarLabel: "プロフィール",
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="person" style={{ fontSize: 20, color: "#a04fdd" }} />
+        ),
       }}
     />
   </Tabs.Navigator>
@@ -148,9 +194,12 @@ const TabsScreen = () => (
 
 const Drawer = createDrawerNavigator();
 const DrawerScreen = () => (
-  <Drawer.Navigator initialRouteName="Profile">
+  <Drawer.Navigator initialRouteName="Home">
     <Drawer.Screen name="Home" component={TabsScreen} />
-    <Drawer.Screen name="Profile" component={ProfileStackScreen} />
+    <Drawer.Screen name="Today's　Picks" component={TimelineStackScreen} />
+    <Drawer.Screen name="友達招待" component={InvitationStackScreen} />
+    <Drawer.Screen name="年齢確認" component={AgeCheckStackScreen} />
+    <Drawer.Screen name="設定" component={ConfigStackScreen} />
   </Drawer.Navigator>
 );
 

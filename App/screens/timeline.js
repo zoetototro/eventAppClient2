@@ -5,8 +5,9 @@ import {
   Image,
   Modal,
   TouchableHighlight,
+  DeckSwiper,
 } from "react-native";
-import { View, Card, CardItem, Text } from "native-base";
+import { View, Card, CardItem, Text, Icon } from "native-base";
 import { FlatGrid } from "react-native-super-grid";
 import { ceil } from "react-native-reanimated";
 import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
@@ -28,15 +29,20 @@ const styles = StyleSheet.create({
     width: vw(100),
     alignItems: "center",
   },
+  accrodion: {
+    position: "absolute",
+    bottom: 0,
+  },
   imageText: {
     color: "#ffffff",
     marginBottom: 8,
   },
   cardWrap: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     textAlign: "center",
+    flexDirection: "row",
   },
   card: {
     width: 120,
@@ -91,14 +97,23 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
   },
+  actionCard: {
+    width: 64,
+    height: 64,
+  },
 });
 
 const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
+const dataArray = [
+  { title: "First Element", content: "Lorem ipsum dolor sit amet" },
+];
+
 export const Timeline = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <ScreenContainer>
       <Modal
@@ -115,7 +130,7 @@ export const Timeline = ({ navigation }) => {
             <Text style={styles.modalText}>新宿/叙々苑</Text>
             <Image
               source={{
-                uri: "https://source.unsplash.com/random",
+                uri: "https://source.unsplash.com/user/chrisjoelcampbell",
               }}
               style={styles.eventImage}
             />
@@ -145,24 +160,47 @@ export const Timeline = ({ navigation }) => {
           <Text style={styles.imageText}>広告代理店</Text>
         </View>
       </View>
-      <TouchableHighlight
-        style={styles.cardWrap}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-      >
-        <Card style={styles.card}>
-          <CardItem cardBody>
-            <Image
-              source={{ uri: "https://source.unsplash.com/random" }}
-              style={styles.image}
-            />
-          </CardItem>
-          <CardItem footer>
-            <Text style={styles.miniText}>叙々苑・新宿</Text>
-          </CardItem>
+      <View style={styles.cardWrap}>
+        <Card
+          style={{
+            borderRadius: 32,
+            width: 64,
+            height: 64,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Icon name="close" style={{ color: "#0466d6" }} />
         </Card>
-      </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          <Card style={styles.card}>
+            <CardItem cardBody>
+              <Image
+                source={{ uri: "https://source.unsplash.com/random" }}
+                style={styles.image}
+              />
+            </CardItem>
+            <CardItem footer>
+              <Text style={styles.miniText}>恵比寿 kintan</Text>
+            </CardItem>
+          </Card>
+        </TouchableHighlight>
+        <Card
+          style={{
+            borderRadius: 32,
+            width: 64,
+            height: 64,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Icon primary name="heart" style={{ color: "#ff3834" }} />
+        </Card>
+      </View>
     </ScreenContainer>
   );
 };

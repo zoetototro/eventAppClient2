@@ -32,7 +32,6 @@ export const Profile = ({ navigation }) => {
 
   return (
     <ScreenContainer>
-      <Icon name="menu" />
       <Image
         source={{
           uri: "https://source.unsplash.com/user/chrisjoelcampbell",
