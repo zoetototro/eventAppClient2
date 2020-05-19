@@ -7,7 +7,17 @@ import {
   TouchableHighlight,
   DeckSwiper,
 } from "react-native";
-import { View, Card, CardItem, Text, Icon } from "native-base";
+import {
+  View,
+  Card,
+  CardItem,
+  Text,
+  Icon,
+  List,
+  ListItem,
+  Left,
+  Right,
+} from "native-base";
 import { FlatGrid } from "react-native-super-grid";
 import { ceil } from "react-native-reanimated";
 import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
@@ -59,12 +69,6 @@ const styles = StyleSheet.create({
   miniText: {
     fontSize: 14,
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
   modalView: {
     margin: 20,
     backgroundColor: "white",
@@ -82,12 +86,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
   textStyle: {
     color: "white",
     fontWeight: "bold",
@@ -101,6 +99,62 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
   },
+  flex: {
+    flexDirection: "row",
+    marginVertical: 32,
+    alignItems: "baseline",
+    justifyContent: "center",
+  },
+  mediumText: {
+    fontSize: 14,
+  },
+  largeText: {
+    fontSize: 28,
+    marginRight: 8,
+  },
+  sectionContainer: {
+    padding: 8,
+  },
+  //modal
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  //profileModal
+  profileModalView: {
+    backgroundColor: "white",
+    marginTop: 48,
+    shadowColor: "#000",
+    width: vw(100),
+    height: vh(108),
+    elevation: 10,
+    overflow: "scroll",
+  },
+  profileImageWrap: {
+    position: "relative",
+  },
+  profileHideButton: {
+    flex: 1,
+    position: "absolute",
+    top: 48,
+    left: 16,
+    backgroundColor: "#000",
+    opacity: 0.4,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 2,
+  },
 });
 
 const ScreenContainer = ({ children }) => (
@@ -113,9 +167,92 @@ const dataArray = [
 
 export const Timeline = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [profileModalVisible, setProfileModalVisible] = useState(false);
 
   return (
     <ScreenContainer>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={profileModalVisible}
+        style={styles.modal}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.profileModalView}>
+            <View>
+              <Image
+                source={{
+                  uri: "https://source.unsplash.com/user/chrisjoelcampbell",
+                }}
+                style={{ height: vh(60), width: null, flex: 1 }}
+              />
+              <TouchableHighlight
+                style={{
+                  ...styles.profileHideButton,
+                  backgroundColor: "#000",
+                }}
+                onPress={() => {
+                  setProfileModalVisible(!profileModalVisible);
+                }}
+              >
+                <Icon
+                  name="close"
+                  style={{
+                    color: "#fff",
+                  }}
+                />
+              </TouchableHighlight>
+            </View>
+            <View style={styles.sectionContainer}>
+              <View style={styles.flex}>
+                <Text style={styles.largeText}>キャサリン</Text>
+                <Text style={styles.mediumText}>25歳</Text>
+              </View>
+              <Text style={styles.mediumText}>
+                都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
+              </Text>
+              <Text style={styles.mediumText}>
+                都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
+              </Text>
+              <Text style={styles.mediumText}>
+                都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
+              </Text>
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text>基本プロフィール</Text>
+            </View>
+            <List>
+              <ListItem>
+                <Left>
+                  <Text style={styles.mediumText}>身長</Text>
+                </Left>
+                <Right>
+                  <Text style={styles.mediumText}>173cm</Text>
+                </Right>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text style={styles.mediumText}>居住地</Text>
+                </Left>
+                <Right>
+                  <Text style={styles.mediumText}>ロサンゼルス</Text>
+                </Right>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text style={styles.mediumText}>年収</Text>
+                </Left>
+                <Right>
+                  <Text style={styles.mediumText}>800~1000万</Text>
+                </Right>
+              </ListItem>
+            </List>
+          </View>
+        </View>
+      </Modal>
       <Modal
         animationType="slide"
         transparent={true}
@@ -125,7 +262,7 @@ export const Timeline = ({ navigation }) => {
           Alert.alert("Modal has been closed.");
         }}
       >
-        <View style={styles.centeredView}>
+        <View>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>新宿/叙々苑</Text>
             <Image
@@ -148,18 +285,24 @@ export const Timeline = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-      <View style={styles.imageWrap}>
-        <Image
-          source={{
-            uri: "https://source.unsplash.com/random",
-          }}
-          style={styles.mainImage}
-        />
-        <View style={styles.textWrap}>
-          <Text style={styles.imageText}>エミリー 27歳</Text>
-          <Text style={styles.imageText}>広告代理店</Text>
+      <TouchableHighlight
+        onPress={() => {
+          setProfileModalVisible(true);
+        }}
+      >
+        <View style={styles.imageWrap}>
+          <Image
+            source={{
+              uri: "https://source.unsplash.com/random",
+            }}
+            style={styles.mainImage}
+          />
+          <View style={styles.textWrap}>
+            <Text style={styles.imageText}>エミリー 27歳</Text>
+            <Text style={styles.imageText}>広告代理店</Text>
+          </View>
         </View>
-      </View>
+      </TouchableHighlight>
       <View style={styles.cardWrap}>
         <Card
           style={{
