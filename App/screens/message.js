@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
+import { SwipeListView } from "react-native-swipe-list-view";
 import {
   Container,
   Header,
@@ -21,33 +22,45 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Message = ({ navigation }) => (
-  <Container>
-    <Content>
-      <List>
-        {[0, 1, 2, 3, 4, 5, 6].map((v) => {
-          return (
-            <ListItem onPress={() => navigation.push("ChatDetail")} avatar>
-              <Left>
-                <Thumbnail
-                  source={{
-                    uri: "https://source.unsplash.com/user/chrisjoelcampbell",
-                  }}
-                />
-              </Left>
-              <Body>
-                <Text>Kumar Pratik</Text>
-                <Text note>
-                  Doing what you like will always keep you happy . .
-                </Text>
-              </Body>
-              <Right>
-                <Text note>3:43 pm</Text>
-              </Right>
-            </ListItem>
-          );
-        })}
-      </List>
-    </Content>
-  </Container>
-);
+const data = Array(20)
+  .fill("")
+  .map((_, i) => ({ key: `${i}`, text: `item #${i}` }));
+
+export const Message = ({ navigation }) => {
+  const [listViewData, setlistViewData] = useState(data);
+  return (
+    <Container>
+      <Content>
+        <SwipeListView
+          data={listViewData}
+          renderItem={(data, rowMap) => (
+            <List>
+              <ListItem onPress={() => navigation.push("ChatDetail")} avatar>
+                <Left>
+                  <Thumbnail
+                    source={{
+                      uri: "https://source.unsplash.com/user/chrisjoelcampbell",
+                    }}
+                  />
+                </Left>
+                <Body>
+                  <Text>Kumar Pratik</Text>
+                  <Text note>
+                    Doing what you like will always keep you happy . .
+                  </Text>
+                </Body>
+                <Right>
+                  <Text note>3:43 pm</Text>
+                </Right>
+              </ListItem>
+            </List>
+          )}
+          renderHiddenItem={(data, rowMap) => (
+            <View style={styles.rowBack}></View>
+          )}
+          rightOpenValue={-75}
+        />
+      </Content>
+    </Container>
+  );
+};
