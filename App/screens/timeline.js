@@ -1,7 +1,6 @@
 import React, { Component, useState } from "react";
 import {
   StyleSheet,
-  Button,
   Image,
   Modal,
   TouchableHighlight,
@@ -17,6 +16,7 @@ import {
   ListItem,
   Left,
   Right,
+  Button,
 } from "native-base";
 import { FlatGrid } from "react-native-super-grid";
 import { ceil } from "react-native-reanimated";
@@ -69,28 +69,6 @@ const styles = StyleSheet.create({
   miniText: {
     fontSize: 14,
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    width: vw(80),
-    height: vh(80),
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
@@ -127,6 +105,45 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+  },
+  modalView: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    width: vw(80),
+    height: vh(80),
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    position: "relative",
+  },
+  eventHideButton: {
+    flex: 1,
+    position: "absolute",
+    top: 16,
+    left: 16,
+    backgroundColor: "#000",
+    opacity: 0.4,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 2,
+  },
+  requestButton: {
+    position: "absolute",
+    bottom: 16,
+  },
+  modalHead: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
   //profileModal
   profileModalView: {
@@ -262,26 +279,57 @@ export const Timeline = ({ navigation }) => {
           Alert.alert("Modal has been closed.");
         }}
       >
-        <View>
+        <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>新宿/叙々苑</Text>
+            <Text style={styles.modalHead}>新宿/叙々苑</Text>
             <Image
               source={{
                 uri: "https://source.unsplash.com/user/chrisjoelcampbell",
               }}
-              style={styles.eventImage}
+              style={{ height: vh(20), width: vw(80), marginVertical: 24 }}
+              resizeMode="cover"
             />
             <Text style={styles.modalText}>
               叙々苑でご飯でも食べながら、仲良くなれると嬉しいです。
             </Text>
             <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+              style={{ ...styles.eventHideButton, backgroundColor: "#000" }}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Icon
+                name="close"
+                style={{
+                  color: "#fff",
+                }}
+              />
             </TouchableHighlight>
+            <List>
+              <ListItem
+                style={{
+                  width: vw(80),
+                }}
+              >
+                <Left>
+                  <Text style={styles.mediumText}>初回デート費用</Text>
+                </Left>
+                <Right>
+                  <Text style={styles.mediumText}>おごります</Text>
+                </Right>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text style={styles.mediumText}>お相手に求めること</Text>
+                </Left>
+                <Right>
+                  <Text style={styles.mediumText}>年収800~1000万</Text>
+                </Right>
+              </ListItem>
+            </List>
+            <Button style={styles.requestButton}>
+              <Text>お誘いする</Text>
+            </Button>
           </View>
         </View>
       </Modal>
