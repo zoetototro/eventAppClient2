@@ -51,33 +51,8 @@ export const Search2 = () => (
   </ScreenContainer>
 );
 
-export const Profile = ({ navigation }) => {
-  const { signOut } = React.useContext(AuthContext);
-
-  return (
-    <ScreenContainer>
-      <Button title="メニュー" onPress={() => navigation.toggleDrawer()} />
-      <Button title="ログアウト" onPress={() => signOut()} />
-    </ScreenContainer>
-  );
-};
-
 export const Splash = () => (
   <ScreenContainer>
     <Text>Loading...</Text>
   </ScreenContainer>
 );
-
-export const SignIn = ({ navigation }) => {
-  const { signIn } = React.useContext(AuthContext);
-
-  return (
-    <ScreenContainer>
-      <Button title="ログイン" onPress={() => signIn()} />
-      <Button
-        title="新規会員登録"
-        onPress={() => navigation.push("CreateAccount")}
-      />
-    </ScreenContainer>
-  );
-};
