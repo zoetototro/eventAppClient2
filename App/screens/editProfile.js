@@ -12,6 +12,7 @@ import {
   Picker,
   Icon,
   Textarea,
+  Left,
 } from "native-base";
 import { FlatGrid } from "react-native-super-grid";
 import { ScrollView } from "react-native-gesture-handler";
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
   button: {
     marginHorizontal: 20,
     borderRadius: 5,
+    justifyContent: "center",
   },
   item: {
     marginBottom: 8,
@@ -35,11 +37,15 @@ const styles = StyleSheet.create({
   },
   card: {
     height: 120,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  margin: { marginVertical: 8 },
+  margin: { marginTop: 16, marginHorizontal: 16, marginBottom: 8 },
   marginH: { marginHorizontal: 8 },
   eventsWrap: { height: 120, marginVertical: 16 },
   textarea: { backgroundColor: "#ffffff" },
+  listText: { marginLeft: 16 },
 });
 
 const ScreenContainer = ({ children }) => (
@@ -103,8 +109,8 @@ export const EditProfile = (navigation) => {
           // spacing={20}
           renderItem={({ event, index }) => (
             <Card style={styles.card}>
-              <CardItem cardBody style={styles.image}></CardItem>
               <Icon name="add"></Icon>
+              <Text>AddEvent</Text>
             </Card>
           )}
         />
@@ -120,11 +126,14 @@ export const EditProfile = (navigation) => {
             placeholder=""
           />
           <Item picker>
+            <Left style={styles.listText}>
+              <Text>職種</Text>
+            </Left>
             <Picker
               mode="dropdown"
               iosIcon={<Icon name="arrow-down" />}
               style={{ width: undefined }}
-              placeholder="職種"
+              placeholder="自営業"
               placeholderStyle={{ color: "#bfc6ea" }}
               placeholderIconColor="#007aff"
               selectedValue={selected2}
@@ -138,11 +147,14 @@ export const EditProfile = (navigation) => {
             </Picker>
           </Item>
           <Item picker>
+            <Left style={styles.listText}>
+              <Text>職場</Text>
+            </Left>
             <Picker
               mode="dropdown"
               iosIcon={<Icon name="arrow-down" />}
               style={{ width: undefined }}
-              placeholder="職場"
+              placeholder="WINDII"
               placeholderStyle={{ color: "#bfc6ea" }}
               placeholderIconColor="#007aff"
               selectedValue={selected2}
@@ -156,11 +168,14 @@ export const EditProfile = (navigation) => {
             </Picker>
           </Item>
           <Item picker>
+            <Left style={styles.listText}>
+              <Text>年齢</Text>
+            </Left>
             <Picker
               mode="dropdown"
               iosIcon={<Icon name="arrow-down" />}
               style={{ width: undefined }}
-              placeholder="年齢"
+              placeholder="28"
               placeholderStyle={{ color: "#bfc6ea" }}
               placeholderIconColor="#007aff"
               selectedValue={selected2}
@@ -174,11 +189,14 @@ export const EditProfile = (navigation) => {
             </Picker>
           </Item>
           <Item picker>
+            <Left style={styles.listText}>
+              <Text>身長</Text>
+            </Left>
             <Picker
               mode="dropdown"
               iosIcon={<Icon name="arrow-down" />}
               style={{ width: undefined }}
-              placeholder="身長"
+              placeholder="170"
               placeholderStyle={{ color: "#bfc6ea" }}
               placeholderIconColor="#007aff"
               selectedValue={selected2}
