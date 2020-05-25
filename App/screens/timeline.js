@@ -21,6 +21,7 @@ import {
 import { FlatGrid } from "react-native-super-grid";
 import { ceil } from "react-native-reanimated";
 import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
+import { ScrollView } from "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
   container: {
@@ -199,74 +200,76 @@ export const Timeline = ({ navigation }) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.profileModalView}>
-            <View>
-              <Image
-                source={{
-                  uri: "https://source.unsplash.com/user/chrisjoelcampbell",
-                }}
-                style={{ height: vh(60), width: null, flex: 1 }}
-              />
-              <TouchableHighlight
-                style={{
-                  ...styles.profileHideButton,
-                  backgroundColor: "#000",
-                }}
-                onPress={() => {
-                  setProfileModalVisible(!profileModalVisible);
-                }}
-              >
-                <Icon
-                  name="close"
-                  style={{
-                    color: "#fff",
+            <ScrollView>
+              <View>
+                <Image
+                  source={{
+                    uri: "https://source.unsplash.com/user/chrisjoelcampbell",
                   }}
+                  style={{ height: vh(60), width: null, flex: 1 }}
                 />
-              </TouchableHighlight>
-            </View>
-            <View style={styles.sectionContainer}>
-              <View style={styles.flex}>
-                <Text style={styles.largeText}>キャサリン</Text>
-                <Text style={styles.mediumText}>25歳</Text>
+                <TouchableHighlight
+                  style={{
+                    ...styles.profileHideButton,
+                    backgroundColor: "#000",
+                  }}
+                  onPress={() => {
+                    setProfileModalVisible(!profileModalVisible);
+                  }}
+                >
+                  <Icon
+                    name="close"
+                    style={{
+                      color: "#fff",
+                    }}
+                  />
+                </TouchableHighlight>
               </View>
-              <Text style={styles.mediumText}>
-                都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
-              </Text>
-              <Text style={styles.mediumText}>
-                都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
-              </Text>
-              <Text style={styles.mediumText}>
-                都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text>基本プロフィール</Text>
-            </View>
-            <List>
-              <ListItem>
-                <Left>
-                  <Text style={styles.mediumText}>身長</Text>
-                </Left>
-                <Right>
-                  <Text style={styles.mediumText}>173cm</Text>
-                </Right>
-              </ListItem>
-              <ListItem>
-                <Left>
-                  <Text style={styles.mediumText}>居住地</Text>
-                </Left>
-                <Right>
-                  <Text style={styles.mediumText}>ロサンゼルス</Text>
-                </Right>
-              </ListItem>
-              <ListItem>
-                <Left>
-                  <Text style={styles.mediumText}>年収</Text>
-                </Left>
-                <Right>
-                  <Text style={styles.mediumText}>800~1000万</Text>
-                </Right>
-              </ListItem>
-            </List>
+              <View style={styles.sectionContainer}>
+                <View style={styles.flex}>
+                  <Text style={styles.largeText}>キャサリン</Text>
+                  <Text style={styles.mediumText}>25歳</Text>
+                </View>
+                <Text style={styles.mediumText}>
+                  都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
+                </Text>
+                <Text style={styles.mediumText}>
+                  都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
+                </Text>
+                <Text style={styles.mediumText}>
+                  都内で客室乗務員をやっています。あまりこういうアプリは慣れていないですが、よろしくお願いします。
+                </Text>
+              </View>
+              <View style={styles.sectionContainer}>
+                <Text>基本プロフィール</Text>
+              </View>
+              <List>
+                <ListItem>
+                  <Left>
+                    <Text style={styles.mediumText}>身長</Text>
+                  </Left>
+                  <Right>
+                    <Text style={styles.mediumText}>173cm</Text>
+                  </Right>
+                </ListItem>
+                <ListItem>
+                  <Left>
+                    <Text style={styles.mediumText}>居住地</Text>
+                  </Left>
+                  <Right>
+                    <Text style={styles.mediumText}>ロサンゼルス</Text>
+                  </Right>
+                </ListItem>
+                <ListItem>
+                  <Left>
+                    <Text style={styles.mediumText}>年収</Text>
+                  </Left>
+                  <Right>
+                    <Text style={styles.mediumText}>800~1000万</Text>
+                  </Right>
+                </ListItem>
+              </List>
+            </ScrollView>
           </View>
         </View>
       </Modal>

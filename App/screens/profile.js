@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { AuthContext } from "./../context";
-import { List, ListItem, Text, Left, Right, Icon } from "native-base";
+import { List, ListItem, Text, Left, Right, Icon, Button } from "native-base";
 
 const styles = StyleSheet.create({
   container: {
@@ -38,6 +38,9 @@ export const Profile = ({ navigation }) => {
         }}
         style={{ maxHeight: 320, width: null, flex: 1 }}
       />
+      <Button onPress={() => navigation.push("EditProfile")}>
+        <Text>編集</Text>
+      </Button>
       <View style={styles.sectionContainer}>
         <View style={styles.flex}>
           <Text style={styles.largeText}>キャサリン</Text>

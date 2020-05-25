@@ -19,7 +19,7 @@ import { Invitation } from "./screens/invitation";
 import { AgeCheck } from "./screens/ageCheck";
 import { EditProfile } from "./screens/editProfile";
 import { SignIn } from "./screens/signIn";
-import { Icon, View, Button } from "native-base";
+import { Icon, View, Button, Text } from "native-base";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -34,6 +34,7 @@ const TimelineStack = createStackNavigator();
 const InvitationStack = createStackNavigator();
 const AgeCheckStack = createStackNavigator();
 const ConfigStack = createStackNavigator();
+const EditProfileStack = createStackNavigator();
 
 const AuthStackScreen = () => (
   <AuthStack.Navigator>
@@ -121,14 +122,11 @@ const ProfileStackScreen = () => (
       component={Profile}
       options={{
         headerRight: () => (
-          <Button
-            onPress={() => alert("This is a button!")}
-            title="Info"
-            color="#fff"
-          />
+          <Icon onPress={() => alert("This is a button!")} name="menu"></Icon>
         ),
       }}
     />
+    <ProfileStack.Screen name="EditProfile" component={EditProfile} />
   </ProfileStack.Navigator>
 );
 
