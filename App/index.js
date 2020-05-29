@@ -22,6 +22,14 @@ import { SignIn } from "./screens/signIn";
 import { Icon, View, Button, Text } from "native-base";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import { rootReducer } from "./module/ducks/index";
+
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 const AuthStack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -262,10 +270,12 @@ export default () => {
   }
 
   return (
-    <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        <RootStackScreen userToken={userToken} />
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <Provider store={store}>
+      <AuthContext.Provider value={authContext}>
+        <NavigationContainer>
+          <RootStackScreen userToken={userToken} />
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </Provider>
   );
 };
