@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Image,
-  TouchableHighlight,
-} from "react-native";
+import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { AuthContext } from "./../context";
 import { Input, Text, Item, Button, Form } from "native-base";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../module/auth/index";
 import { vw } from "react-native-expo-viewport-units";
 
 const styles = StyleSheet.create({
@@ -47,31 +42,19 @@ const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const SignIn = ({ navigation, login }) => {
+export const SignIn = ({ navigation, store }) => {
   const { signIn } = React.useContext(AuthContext);
   const [email, setEmail] = useState("frfr");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    fetch("https://example.com").then((r) => console.log(r));
-  });
+  const dispatch = useDispatch();
 
   function handleSubmit() {
-    console.log(email);
+    console.log("submit", email);
     if (email && password) {
-      this.props.login(email, password);
+      dispatch(login(email, password));
     }
   }
-
-  function handleEmailChange(e) {
-    const { name, value } = e.target;
-    setEmail({ [name]: value });
-  }
-
-  handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setPassword({ [name]: value });
-  };
 
   return (
     <ScreenContainer>
@@ -88,16 +71,16 @@ export const SignIn = ({ navigation, login }) => {
             type="text"
             name="email"
             style={styles.item}
-            onChange={handleEmailChange}
+            onChangeText={(value) => setEmail(value)}
             placeholder="メールアドレス"
           />
         </Item>
         <Item regular style={styles.itemWrap}>
           <Input
-            type="password"
+            type="text"
             name="password"
             style={styles.item}
-            onChange={handlePasswordChange}
+            onChangeText={(value) => setPassword(value)}
             placeholder="パスワード"
           />
         </Item>
@@ -119,18 +102,3 @@ export const SignIn = ({ navigation, login }) => {
     </ScreenContainer>
   );
 };
-
-mapStateToProps = (state) => {
-  return {
-    email: state.email,
-    password: state.password,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  login(email, password) {
-    dispatch(login(email, password));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

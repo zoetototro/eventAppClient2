@@ -4,7 +4,7 @@ const LOAD_FAIL = "LOAD_FAIL";
 const LOGIN = "LOGIN";
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const LOGIN_FAIL = "LOGIN_FAIL";
-const LOGOUT = "redux-example/auth/LOGOUT";
+const LOGOUT = "LOGOUT";
 const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 const LOGOUT_FAIL = "LOGOUT_FAIL";
 
@@ -84,12 +84,12 @@ export function load() {
   };
 }
 
-const apiHost = "http://localhost:8080/auth/api";
+const apiHost = "http://localhost:8000/api/auth";
 
 export function login(email, password) {
-  console.log("hello");
-  return {
-    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+  console.log("email", email);
+  /*return {
+    type: LOGIN,
     promise: (client) =>
       client.post(`${apiHost}/login`, {
         data: {
@@ -97,6 +97,18 @@ export function login(email, password) {
           password: password,
         },
       }),
+  };*/
+  return (dispatch) => {
+    console.log(email, password);
+    fetch(`${apiHost}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((res) => console.log(res.json()))
+      .catch((e) => console.log(e));
   };
 }
 
