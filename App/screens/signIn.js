@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   View,
@@ -47,25 +47,32 @@ const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const SignIn = ({ navigation }) => {
+export const SignIn = ({ navigation, login }) => {
   const { signIn } = React.useContext(AuthContext);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("frfr");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(e) {
-    console.log(e);
-    e.preventDefault();
-    const { username, password } = state;
-    console.log(state);
-    if (username && password) {
-      props.login(username, password);
+  useEffect(() => {
+    fetch("https://example.com").then((r) => console.log(r));
+  });
+
+  function handleSubmit() {
+    console.log(email);
+    if (email && password) {
+      this.props.login(email, password);
     }
   }
 
-  function handleChange(e) {
+  function handleEmailChange(e) {
     const { name, value } = e.target;
     setEmail({ [name]: value });
   }
+
+  handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPassword({ [name]: value });
+  };
+
   return (
     <ScreenContainer>
       <View style={styles.logoWrap}>
@@ -81,7 +88,7 @@ export const SignIn = ({ navigation }) => {
             type="text"
             name="email"
             style={styles.item}
-            onChange={handleChange}
+            onChange={handleEmailChange}
             placeholder="メールアドレス"
           />
         </Item>
@@ -90,7 +97,7 @@ export const SignIn = ({ navigation }) => {
             type="password"
             name="password"
             style={styles.item}
-            onChange={handleChange}
+            onChange={handlePasswordChange}
             placeholder="パスワード"
           />
         </Item>
@@ -98,7 +105,7 @@ export const SignIn = ({ navigation }) => {
           <Button
             style={styles.login}
             onPress={() => {
-              handleSubmit;
+              handleSubmit();
               //signIn();
             }}
           >
@@ -113,12 +120,12 @@ export const SignIn = ({ navigation }) => {
   );
 };
 
-function mapStateToProps(state) {
+mapStateToProps = (state) => {
   return {
     email: state.email,
     password: state.password,
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
   login(email, password) {
