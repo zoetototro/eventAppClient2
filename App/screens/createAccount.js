@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableHighlight,
+  Image,
+} from "react-native";
 import { AuthContext } from "./../context";
 import { Button, Input, Text, Item } from "native-base";
+import { vw } from "react-native-expo-viewport-units";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
+    backgroundColor: "#fff",
     padding: 16,
   },
   button: {
@@ -18,6 +23,30 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   item: {
+    marginBottom: 8,
+  },
+  logoWrap: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logo: {
+    width: 240,
+    height: 240,
+  },
+  item: {
+    width: vw(100),
+    fontSize: 14,
+  },
+  itemWrap: {
+    marginVertical: 16,
+  },
+  register: {
+    fontSize: 14,
+    color: "#0179fe",
+  },
+  login: {
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 8,
   },
 });
@@ -30,16 +59,27 @@ export const CreateAccount = () => {
   const { signUp } = React.useContext(AuthContext);
   return (
     <ScreenContainer>
-      <Item style={styles.item} regular>
-        <Input placeholder="メールアドレス" />
+      <View style={styles.logoWrap}>
+        <Image
+          style={styles.logo}
+          resizeMode="contain"
+          source={require("../../assets/images/logo.png")}
+        />
+      </View>
+      <Item regular>
+        <Input style={styles.item} placeholder="メールアドレス" />
       </Item>
-      <Item style={styles.item} regular>
-        <Input placeholder="パスワード" />
+      <Item regular style={styles.itemWrap}>
+        <Input style={styles.item} placeholder="パスワード" />
       </Item>
-      <Button>
-        <Text>送信</Text>
-      </Button>
-      <Button title="Sign Up" onPress={() => signUp()} />
+      <View>
+        <Button style={styles.login} onPress={() => signIn()}>
+          <Text>新規会員登録</Text>
+        </Button>
+        <TouchableHighlight onPress={() => navigation.push("CreateAccount")}>
+          <Text style={styles.register}>ログイン</Text>
+        </TouchableHighlight>
+      </View>
     </ScreenContainer>
   );
 };

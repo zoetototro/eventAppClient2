@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { AuthContext } from "./../context";
 import { List, ListItem, Text, Left, Right, Icon, Button } from "native-base";
+import { ScrollView } from "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
   container: {

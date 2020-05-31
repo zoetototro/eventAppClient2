@@ -25,6 +25,7 @@ import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
   },
   button: {
     width: 100,
@@ -38,11 +39,10 @@ const styles = StyleSheet.create({
   },
   listItem: {},
   modalView: {
-    backgroundColor: "#000000",
-    borderRadius: 20,
-    opacity: 0.8,
+    backgroundColor: "#ffffff",
     padding: 35,
     alignItems: "center",
+    justifyContent: "center",
     shadowColor: "#000",
     width: vw(100),
     height: vh(100),
@@ -51,13 +51,28 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
-  colorWhite: {
-    color: "#ffffff",
+  matchHead: {
+    fontSize: 36,
+    fontWeight: "bold",
   },
   thumbnailWrap: {
     opacity: 1,
     flexDirection: "row",
-    marginVertical: 48,
+    marginVertical: 36,
+  },
+  openButton: {
+    flex: 1,
+    position: "absolute",
+    top: 32,
+    left: 16,
+    backgroundColor: "#000",
+    opacity: 0.4,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 2,
   },
 });
 
@@ -81,7 +96,7 @@ export const Notification = ({ navigation }) => {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.colorWhite}>Matchi!!!</Text>
+              <Text style={styles.matchHead}>Matchi!!!</Text>
               <View style={styles.thumbnailWrap}>
                 <Thumbnail
                   source={{
@@ -94,26 +109,27 @@ export const Notification = ({ navigation }) => {
                   }}
                 />
               </View>
-              <Text style={styles.colorWhite}>おめでとうございます。</Text>
-              <Text style={styles.colorWhite}>
-                キャサリンさんとマッチしました
-              </Text>
-              <Text style={styles.colorWhite}>
+              <Text>おめでとうございます。</Text>
+              <Text>キャサリンさんとマッチしました</Text>
+              <Text style={{ marginBottom: 36 }}>
                 早速メッセージを送りましょう
               </Text>
-              <Button bordered block sytle={styles.matchButton}>
+              <Button block sytle={styles.matchButton}>
                 <Text>メッセージを送信する</Text>
               </Button>
-              <Button bordered block sytle={styles.matchButton}>
-                <TouchableHighlight
-                  style={{ ...styles.openButton }}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
+              <TouchableHighlight
+                style={{ ...styles.openButton }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Icon
+                  name="close"
+                  style={{
+                    color: "#fff",
                   }}
-                >
-                  <Text style={styles.textStyle}>閉じる</Text>
-                </TouchableHighlight>
-              </Button>
+                />
+              </TouchableHighlight>
             </View>
           </View>
         </Modal>
