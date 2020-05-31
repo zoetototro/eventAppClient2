@@ -1,3 +1,7 @@
+import axios from "axios";
+import ReactNative, { AsyncStorage } from "react-native";
+import { setLightEstimationEnabled } from "expo/build/AR";
+
 const LOAD = "LOAD";
 const LOAD_SUCCESS = "LOAD_SUCCESS";
 const LOAD_FAIL = "LOAD_FAIL";
@@ -7,6 +11,7 @@ const LOGIN_FAIL = "LOGIN_FAIL";
 const LOGOUT = "LOGOUT";
 const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 const LOGOUT_FAIL = "LOGOUT_FAIL";
+const TOKEN = "TOKEN";
 
 const initialState = {
   loaded: false,
@@ -84,10 +89,16 @@ export function load() {
   };
 }
 
+export const setToken = (token) => {
+  return {
+    type: TOKEN,
+    token,
+  };
+};
+
 const apiHost = "http://localhost:8000/api/auth";
 
 export function login(email, password) {
-  console.log("email", email);
   /*return {
     type: LOGIN,
     promise: (client) =>
@@ -99,18 +110,29 @@ export function login(email, password) {
       }),
   };*/
   return (dispatch) => {
-    console.log(email, password);
-    fetch(`${apiHost}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => console.log(res.json()))
+    axios
+      .post(`${apiHost}/login`, {
+        email,
+        password,
+      })
+      .then((res) => {
+        console.log(res.data.access_token);
+        dispatch(setToken(res.data.access_token));
+        storeData(res.data.access_token);
+      })
       .catch((e) => console.log(e));
   };
 }
+storeData = async (token) => {
+  console.log(token);
+  try {
+    await AsyncStorage.setItem("token", token);
+    const value = await AsyncStorage.getItem("token");
+    console.log(value);
+  } catch (error) {
+    // Error saving data
+  }
+};
 
 export function logout() {
   return {
