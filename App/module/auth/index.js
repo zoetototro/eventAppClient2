@@ -89,26 +89,15 @@ export function load() {
   };
 }
 
-export const setToken = (token) => {
+export const loginSuccess = () => {
   return {
-    type: TOKEN,
-    token,
+    type: LOGIN,
   };
 };
 
 const apiHost = "http://localhost:8000/api/auth";
 
 export function login(email, password) {
-  /*return {
-    type: LOGIN,
-    promise: (client) =>
-      client.post(`${apiHost}/login`, {
-        data: {
-          email: email,
-          password: password,
-        },
-      }),
-  };*/
   return (dispatch) => {
     axios
       .post(`${apiHost}/login`, {
@@ -117,7 +106,7 @@ export function login(email, password) {
       })
       .then((res) => {
         console.log(res.data.access_token);
-        dispatch(setToken(res.data.access_token));
+        dispatch(loginSuccess());
         storeData(res.data.access_token);
       })
       .catch((e) => console.log(e));
@@ -128,7 +117,6 @@ storeData = async (token) => {
   try {
     await AsyncStorage.setItem("token", token);
     const value = await AsyncStorage.getItem("token");
-    console.log(value);
   } catch (error) {
     // Error saving data
   }
