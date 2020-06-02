@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Image } from "react-native";
-import { AuthContext } from "./../context";
 import { Input, Text, Item, Icon, Button } from "native-base";
 import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
 const styles = StyleSheet.create({
@@ -46,8 +45,6 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const AgeCheck = ({ navigation }) => {
-  const { signIn } = React.useContext(AuthContext);
-
   return (
     <ScreenContainer>
       <Text>

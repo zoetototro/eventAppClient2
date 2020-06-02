@@ -7,7 +7,6 @@ import {
   Modal,
   TouchableHighlight,
 } from "react-native";
-import { AuthContext } from "./../context";
 import {
   Button,
   Text,
@@ -122,7 +121,6 @@ const ScreenContainer = ({ children }) => (
 
 export const EditProfile = (navigation) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { signUp } = React.useContext(AuthContext);
   const [selected2, setSelected2] = useState("undefined");
   function onValueChange2() {
     setSelected2({

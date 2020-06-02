@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Button } from "react-native";
-import { AuthContext } from "./../context";
 import { Input, Text, Item } from "native-base";
 
 const styles = StyleSheet.create({
@@ -16,8 +15,6 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const Invitation = ({ navigation }) => {
-  const { signIn } = React.useContext(AuthContext);
-
   return (
     <ScreenContainer>
       <Item style={styles.item} regular>
