@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -43,11 +44,19 @@ const AgeCheckStack = createStackNavigator();
 const ConfigStack = createStackNavigator();
 
 const AuthStackScreen = () => (
-  <AuthStack.Navigator>
+  <AuthStack.Navigator headerMode="none">
     <AuthStack.Screen
       name="SignIn"
       component={SignIn}
       options={{ title: "Match" }}
+    />
+    <AuthStack.Screen
+      name="DrawerScreen"
+      component={DrawerScreen}
+      options={{
+        title: "Match",
+        animationEnabled: false,
+      }}
     />
     <AuthStack.Screen
       name="CreateAccount"
@@ -203,9 +212,9 @@ const DrawerScreen = () => (
 );
 
 const RootStack = createStackNavigator();
-const RootStackScreen = ({ userToken }) => (
+const RootStackScreen = ({ store }) => (
   <RootStack.Navigator headerMode="none">
-    {userToken ? (
+    {store ? (
       <RootStack.Screen
         name="App"
         component={DrawerScreen}
@@ -233,22 +242,10 @@ export default () => {
         Roboto_medium: require("../node_modules/native-base/Fonts/Roboto_medium.ttf"),
         ...Ionicons.font,
       });
+      store.subscribe(() => console.log("store", store.getState()));
     }
     fetchData();
   }, []);
-
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [userToken, setUserToken] = React.useState(null);
-  React.useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-
-  if (isLoading) {
-    return <Splash />;
-  }
-
   return (
     <Provider store={store}>
       <NavigationContainer>

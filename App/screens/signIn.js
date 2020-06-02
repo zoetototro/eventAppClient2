@@ -4,6 +4,17 @@ import { Input, Text, Item, Button, Form } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../module/auth/index";
 import { vw } from "react-native-expo-viewport-units";
+import axios from "axios";
+
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.log(error.response.status);
+    // TODO: アラート
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -47,10 +58,26 @@ export const SignIn = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
+  const signIn = async (email, password) => {
+    const apiHost = "http://localhost:8000/api";
+    try {
+      const res = await axios.post(`${apiHost}/auth/login`, {
+        email,
+        password,
+      });
+      const accessToken = res.data.access_token;
+      login(accessToken);
+      navigation.push("DrawerScreen");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   function handleSubmit() {
     console.log("submit", email);
     if (email && password) {
-      dispatch(login(email, password));
+      //dispatch(login(email, password));
+      signIn(email, password);
     }
   }
 

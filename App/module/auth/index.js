@@ -15,6 +15,7 @@ const TOKEN = "TOKEN";
 
 const initialState = {
   loaded: false,
+  loggingIn: false,
 };
 
 export default function authReducer(state = initialState, action = {}) {
@@ -97,7 +98,7 @@ export const loginSuccess = () => {
 
 const apiHost = "http://localhost:8000/api/auth";
 
-export function login(email, password) {
+/*export function login(email, password) {
   return (dispatch) => {
     axios
       .post(`${apiHost}/login`, {
@@ -111,7 +112,11 @@ export function login(email, password) {
       })
       .catch((e) => console.log(e));
   };
-}
+}*/
+
+export const login = (accessToken) => {
+  storeData(accessToken);
+};
 storeData = async (token) => {
   console.log(token);
   try {
