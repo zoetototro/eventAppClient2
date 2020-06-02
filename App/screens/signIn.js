@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
-import { AuthContext } from "./../context";
 import { Input, Text, Item, Button, Form } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../module/auth/index";
@@ -42,8 +41,7 @@ const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const SignIn = ({ navigation, store }) => {
-  const { signIn } = React.useContext(AuthContext);
+export const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState("frfr");
   const [password, setPassword] = useState("");
 
@@ -89,7 +87,6 @@ export const SignIn = ({ navigation, store }) => {
             style={styles.login}
             onPress={() => {
               handleSubmit();
-              //signIn();
             }}
           >
             <Text>ログイン</Text>

@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import { AuthContext } from "./context";
 import { Search, Details, Search2, Splash } from "./Screens";
 
 import { Home } from "./screens/home";
@@ -27,7 +26,6 @@ import logger from "redux-logger";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import { rootReducer } from "./module/ducks/index";
 import authReducer from "./module/auth/index";
 
 const store = createStore(authReducer, applyMiddleware(thunk, logger));
@@ -43,7 +41,6 @@ const TimelineStack = createStackNavigator();
 const InvitationStack = createStackNavigator();
 const AgeCheckStack = createStackNavigator();
 const ConfigStack = createStackNavigator();
-const EditProfileStack = createStackNavigator();
 
 const AuthStackScreen = () => (
   <AuthStack.Navigator>
@@ -242,24 +239,6 @@ export default () => {
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [userToken, setUserToken] = React.useState(null);
-
-  const authContext = React.useMemo(() => {
-    return {
-      signIn: () => {
-        setIsLoading(false);
-        setUserToken("asdf");
-      },
-      signUp: () => {
-        setIsLoading(false);
-        setUserToken("asdf");
-      },
-      signOut: () => {
-        setIsLoading(false);
-        setUserToken(null);
-      },
-    };
-  }, []);
-
   React.useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -272,11 +251,9 @@ export default () => {
 
   return (
     <Provider store={store}>
-      <AuthContext.Provider value={authContext}>
-        <NavigationContainer>
-          <RootStackScreen userToken={userToken} />
-        </NavigationContainer>
-      </AuthContext.Provider>
+      <NavigationContainer>
+        <RootStackScreen />
+      </NavigationContainer>
     </Provider>
   );
 };

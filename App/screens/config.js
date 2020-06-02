@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Button } from "react-native";
-import { AuthContext } from "./../context";
 import { Container, Header, Content, List, ListItem, Text } from "native-base";
 import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
 
@@ -24,8 +23,6 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const Config = ({ navigation }) => {
-  const { signIn } = React.useContext(AuthContext);
-
   return (
     <ScreenContainer>
       <Content>

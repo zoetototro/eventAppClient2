@@ -6,7 +6,6 @@ import {
   TouchableHighlight,
   Image,
 } from "react-native";
-import { AuthContext } from "./../context";
 import { Button, Input, Text, Item } from "native-base";
 import { vw } from "react-native-expo-viewport-units";
 
@@ -56,7 +55,6 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const CreateAccount = () => {
-  const { signUp } = React.useContext(AuthContext);
   return (
     <ScreenContainer>
       <View style={styles.logoWrap}>

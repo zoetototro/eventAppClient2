@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-import { AuthContext } from "./context";
 import { FlatGrid } from "react-native-super-grid";
 
 const styles = StyleSheet.create({
