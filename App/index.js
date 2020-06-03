@@ -111,7 +111,6 @@ const IntroPlanStackScreen = () => (
       name="IntroPlan"
       component={IntroPlan}
     ></IntroPlanStack.Screen>
-    <IntroPlanStack.Screen></IntroPlanStack.Screen>
   </IntroPlanStack.Navigator>
 );
 
