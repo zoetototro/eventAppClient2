@@ -19,6 +19,9 @@ import { Invitation } from "./screens/invitation";
 import { AgeCheck } from "./screens/ageCheck";
 import { EditProfile } from "./screens/editProfile";
 import { SignIn } from "./screens/signIn";
+import { Intro } from "./screens/intro";
+import { IntroPlan } from "./screens/introPlan";
+import { ProfileRegister } from "./screens/profileRegister";
 import { Icon, View, Button, Text } from "native-base";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
@@ -36,12 +39,14 @@ const Tabs = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const MessageStack = createStackNavigator();
 const NotificationStack = createStackNavigator();
-const SearchStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const TimelineStack = createStackNavigator();
 const InvitationStack = createStackNavigator();
 const AgeCheckStack = createStackNavigator();
 const ConfigStack = createStackNavigator();
+const ProfileRegisterStack = createStackNavigator();
+const IntroStack = createStackNavigator();
+const IntroPlanStack = createStackNavigator();
 
 const AuthStackScreen = () => (
   <AuthStack.Navigator headerMode="none">
@@ -60,10 +65,54 @@ const AuthStackScreen = () => (
     />
     <AuthStack.Screen
       name="CreateAccount"
-      component={CreateAccount}
+      component={CreateAccountStackScreen}
       options={{ title: "Match" }}
     />
   </AuthStack.Navigator>
+);
+//intro
+const CreateAccountStackScreen = () => (
+  <CreateAccountStack.Navigator>
+    <CreateAccountStack.Screen name="intro1" component={IntroStackScreen} />
+    <CreateAccountStack.Screen name="CreateAccount" component={CreateAccount} />
+    <CreateAccountStack.Screen
+      name="ProfileRegisterStackScreen"
+      component={ProfileRegisterStackScreen}
+    />
+  </CreateAccountStack.Navigator>
+);
+
+const IntroStackScreen = () => (
+  <IntroStack.Navigator headerMode="none">
+    <IntroStack.Screen name="Intro" component={Intro}></IntroStack.Screen>
+    <IntroStack.Screen
+      name="ProfileRegisterStackScreen"
+      component={ProfileRegisterStackScreen}
+    ></IntroStack.Screen>
+  </IntroStack.Navigator>
+);
+
+const ProfileRegisterStackScreen = () => (
+  <ProfileRegisterStack.Navigator headerMode="none">
+    <ProfileRegisterStack.Screen
+      name="ProfileRegister"
+      component={ProfileRegister}
+    ></ProfileRegisterStack.Screen>
+    <ProfileRegisterStack.Screen
+      name="IntroPlanStackScreen"
+      component={IntroPlanStackScreen}
+    ></ProfileRegisterStack.Screen>
+  </ProfileRegisterStack.Navigator>
+);
+
+const IntroPlanStackScreen = () => (
+  <IntroPlanStack.Navigator headerMode="none">
+    <IntroPlanStack.Screen
+      name="IntroPlan"
+      component={IntroPlan}
+    ></IntroPlanStack.Screen>
+    <IntroPlanStack.Screen></IntroPlanStack.Screen>
+  </IntroPlanStack.Navigator>
 );
 
 const InvitationStackScreen = () => (
@@ -121,13 +170,6 @@ const NotificationStackScreen = () => (
       })}
     />
   </NotificationStack.Navigator>
-);
-
-const SearchStackScreen = () => (
-  <SearchStack.Navigator>
-    <SearchStack.Screen name="Search" component={Search} />
-    <SearchStack.Screen name="Search2" component={Search2} />
-  </SearchStack.Navigator>
 );
 
 const ProfileStackScreen = (navigation) => (
@@ -213,6 +255,8 @@ const DrawerScreen = () => (
     <Drawer.Screen name="設定" component={ConfigStackScreen} />
   </Drawer.Navigator>
 );
+
+const CreateAccountStack = createStackNavigator();
 
 const RootStack = createStackNavigator();
 const RootStackScreen = ({ store }) => (

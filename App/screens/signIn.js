@@ -128,6 +128,9 @@ export const SignIn = ({ navigation }) => {
           <TouchableHighlight onPress={() => navigation.push("CreateAccount")}>
             <Text style={styles.register}>新規会員登録</Text>
           </TouchableHighlight>
+          <TouchableHighlight onPress={() => navigation.push("DrawerScreen")}>
+            <Text style={styles.register}>チート</Text>
+          </TouchableHighlight>
         </View>
       </Form>
     </ScreenContainer>
