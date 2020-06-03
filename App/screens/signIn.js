@@ -74,9 +74,7 @@ export const SignIn = ({ navigation }) => {
   };
 
   function handleSubmit() {
-    console.log("submit", email);
     if (email && password) {
-      //dispatch(login(email, password));
       signIn(email, password);
     }
   }
@@ -93,8 +91,12 @@ export const SignIn = ({ navigation }) => {
       <Form>
         <Item regular>
           <Input
-            type="text"
             name="email"
+            uppercase={false}
+            returnKeyType="next"
+            clearButtonMode="always"
+            autoCapitalize="none"
+            autoCorrect={false}
             style={styles.item}
             onChangeText={(value) => setEmail(value)}
             placeholder="メールアドレス"
@@ -102,8 +104,12 @@ export const SignIn = ({ navigation }) => {
         </Item>
         <Item regular style={styles.itemWrap}>
           <Input
-            type="text"
             name="password"
+            returnKeyType="next"
+            clearButtonMode="always"
+            autoCapitalize="none"
+            autoCorrect={false}
+            uppercase={false}
             style={styles.item}
             onChangeText={(value) => setPassword(value)}
             placeholder="パスワード"
@@ -114,6 +120,7 @@ export const SignIn = ({ navigation }) => {
             style={styles.login}
             onPress={() => {
               handleSubmit();
+              () => navigation.push("");
             }}
           >
             <Text>ログイン</Text>

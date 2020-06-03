@@ -130,14 +130,17 @@ const SearchStackScreen = () => (
   </SearchStack.Navigator>
 );
 
-const ProfileStackScreen = () => (
+const ProfileStackScreen = (navigation) => (
   <ProfileStack.Navigator>
     <ProfileStack.Screen
       name="あなたのプロフィール"
       component={Profile}
       options={{
-        headerRight: () => (
-          <Icon onPress={() => alert("This is a button!")} name="menu"></Icon>
+        headerRight: (navigation) => (
+          <Icon
+            onPress={() => navigation.push("EditProfile")}
+            name="menu"
+          ></Icon>
         ),
       }}
     />
