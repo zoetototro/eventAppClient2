@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
-import { Input, Text, Item, Button, Form } from "native-base";
+import { Input, Text, Item, Button, Form, Textarea } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../module/auth/index";
 import { vw } from "react-native-expo-viewport-units";
@@ -11,14 +11,6 @@ const styles = StyleSheet.create({
     padding: 16,
     flex: 1,
     backgroundColor: "#fff",
-  },
-  logoWrap: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logo: {
-    width: 240,
-    height: 240,
   },
   item: {
     width: vw(100),
@@ -36,18 +28,76 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 8,
   },
+  introHead: {
+    width: vw(100),
+    fontSize: 14,
+    textAlign: "center",
+    marginVertical: 16,
+  },
+  textArea: {
+    marginBottom: 24,
+  },
 });
 
 const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const IntroPlan = ({ navigation }) => {
+export const IntroPlanDetail = ({ navigation }) => {
   return (
     <ScreenContainer>
-      <View style={styles.logoWrap}>
-        <Text>理想のデートを教えてください</Text>
-      </View>
+      <Text style={styles.introHead}>
+        初回デートで相手に求めるものはなんですか？
+      </Text>
+      <Button
+        bordered
+        outline
+        style={styles.login}
+        onPress={() => navigation.push("IntroImageStackScreen")}
+      >
+        <Text primary>奢ってほしい</Text>
+      </Button>
+      <Button
+        bordered
+        outline
+        style={styles.login}
+        onPress={() => navigation.push("IntroImageStackScreen")}
+      >
+        <Text primary>高収入</Text>
+      </Button>
+      <Button
+        bordered
+        outline
+        style={styles.login}
+        onPress={() => navigation.push("IntroImageStackScreen")}
+      >
+        <Text primary>イケメン</Text>
+      </Button>
+      <Button
+        bordered
+        outline
+        style={styles.login}
+        onPress={() => navigation.push("IntroImageStackScreen")}
+      >
+        <Text primary>面白い</Text>
+      </Button>
+      <Text style={styles.introHead}>
+        他にお相手に求めるものがあれば是非教えてください（任意）
+      </Text>
+      <Form>
+        <Textarea
+          style={styles.textArea}
+          rowSpan={3}
+          bordered
+          placeholder="例）新宿・叙々苑"
+        />
+      </Form>
+      <Button
+        style={styles.login}
+        onPress={() => navigation.push("IntroImageStackScreen")}
+      >
+        <Text>次へ</Text>
+      </Button>
     </ScreenContainer>
   );
 };

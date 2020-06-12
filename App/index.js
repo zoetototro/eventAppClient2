@@ -21,6 +21,8 @@ import { EditProfile } from "./screens/editProfile";
 import { SignIn } from "./screens/signIn";
 import { Intro } from "./screens/intro";
 import { IntroPlan } from "./screens/introPlan";
+import { IntroPlanDetail } from "./screens/introPlanDetail";
+import { IntroImage } from "./screens/introImage";
 import { ProfileRegister } from "./screens/profileRegister";
 import { Icon, View, Button, Text } from "native-base";
 import * as Font from "expo-font";
@@ -47,7 +49,8 @@ const ConfigStack = createStackNavigator();
 const ProfileRegisterStack = createStackNavigator();
 const IntroStack = createStackNavigator();
 const IntroPlanStack = createStackNavigator();
-
+const IntroPlanDetailStack = createStackNavigator();
+const IntroImageStack = createStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator headerMode="none">
     <AuthStack.Screen
@@ -73,7 +76,7 @@ const AuthStackScreen = () => (
 //intro
 const CreateAccountStackScreen = () => (
   <CreateAccountStack.Navigator>
-    <CreateAccountStack.Screen name="intro1" component={IntroStackScreen} />
+    <CreateAccountStack.Screen name="Macchi" component={IntroStackScreen} />
     <CreateAccountStack.Screen name="CreateAccount" component={CreateAccount} />
     <CreateAccountStack.Screen
       name="ProfileRegisterStackScreen"
@@ -111,9 +114,37 @@ const IntroPlanStackScreen = () => (
       name="IntroPlan"
       component={IntroPlan}
     ></IntroPlanStack.Screen>
+    <IntroPlanStack.Screen
+      name="IntroPlanDetailStackScreen"
+      component={IntroPlanDetailStackScreen}
+    ></IntroPlanStack.Screen>
   </IntroPlanStack.Navigator>
 );
 
+IntroPlanDetailStackScreen = () => (
+  <IntroPlanDetailStack.Navigator headerMode="none">
+    <IntroStack.Screen
+      name="IntroPlanDetail"
+      component={IntroPlanDetail}
+    ></IntroStack.Screen>
+    <IntroStack.Screen
+      name="IntroImageStackScreen"
+      component={IntroImageStackScreen}
+    ></IntroStack.Screen>
+  </IntroPlanDetailStack.Navigator>
+);
+IntroImageStackScreen = () => (
+  <IntroImageStack.Navigator headerMode="none">
+    <IntroImageStack.Screen
+      name="IntroImage"
+      component={IntroImage}
+    ></IntroImageStack.Screen>
+    <IntroImageStack.Screen
+      name="AurhStackScreen"
+      component={AuthStackScreen}
+    ></IntroImageStack.Screen>
+  </IntroImageStack.Navigator>
+);
 const InvitationStackScreen = () => (
   <InvitationStack.Navigator>
     <InvitationStack.Screen name="友達招待" component={Invitation} />
