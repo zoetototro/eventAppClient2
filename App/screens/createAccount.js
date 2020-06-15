@@ -54,7 +54,7 @@ const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const CreateAccount = () => {
+export const CreateAccount = ({ navigation }) => {
   return (
     <ScreenContainer>
       <View style={styles.logoWrap}>
@@ -71,7 +71,7 @@ export const CreateAccount = () => {
         <Input style={styles.item} placeholder="パスワード" />
       </Item>
       <View>
-        <Button style={styles.login} onPress={() => signIn()}>
+        <Button style={styles.login} onPress={() => navigation.push("Intro")}>
           <Text>新規会員登録</Text>
         </Button>
         <TouchableHighlight onPress={() => navigation.push("CreateAccount")}>

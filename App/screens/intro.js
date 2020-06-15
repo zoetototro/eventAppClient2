@@ -52,7 +52,7 @@ const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
-export const SignIn = ({ navigation }) => {
+export const Intro = ({ navigation }) => {
   const [email, setEmail] = useState("frfr");
   const [password, setPassword] = useState("");
 
@@ -82,6 +82,7 @@ export const SignIn = ({ navigation }) => {
   return (
     <ScreenContainer>
       <View style={styles.logoWrap}>
+        <Text>Macchiはプランベースのマッチングアプリです。</Text>
         <Image
           style={styles.logo}
           resizeMode="contain"
@@ -89,47 +90,19 @@ export const SignIn = ({ navigation }) => {
         />
       </View>
       <Form>
-        <Item regular>
-          <Input
-            name="email"
-            uppercase={false}
-            returnKeyType="next"
-            clearButtonMode="always"
-            autoCapitalize="none"
-            autoCorrect={false}
-            style={styles.item}
-            onChangeText={(value) => setEmail(value)}
-            placeholder="メールアドレス"
-          />
-        </Item>
-        <Item regular style={styles.itemWrap}>
-          <Input
-            name="password"
-            returnKeyType="next"
-            clearButtonMode="always"
-            autoCapitalize="none"
-            autoCorrect={false}
-            uppercase={false}
-            style={styles.item}
-            onChangeText={(value) => setPassword(value)}
-            placeholder="パスワード"
-          />
-        </Item>
         <View>
           <Button
             style={styles.login}
-            onPress={() => {
-              handleSubmit();
-              () => navigation.push("");
-            }}
+            onPress={() => navigation.push("ProfileRegisterStackScreen")}
           >
-            <Text>ログイン</Text>
+            <Text>簡単登録</Text>
           </Button>
-          <TouchableHighlight onPress={() => navigation.push("CreateAccount")}>
-            <Text style={styles.register}>新規会員登録</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => navigation.push("DrawerScreen")}>
-            <Text style={styles.register}>チート</Text>
+          <TouchableHighlight
+            onPress={() => navigation.push("ProfileRegisterStackScreen")}
+          >
+            <Text style={styles.register}>
+              既にアカウントをお持ちのかたはこちら
+            </Text>
           </TouchableHighlight>
         </View>
       </Form>

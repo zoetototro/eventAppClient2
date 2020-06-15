@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet, Button } from "react-native";
-import { Container, Header, Content, List, ListItem, Text } from "native-base";
+import { View, TextInput, StyleSheet, TouchableHighlight } from "react-native";
+import { Content, List, ListItem, Text } from "native-base";
 import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
+import { logout } from "../module/auth/index";
+import axios from "axios";
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +25,19 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const Config = ({ navigation }) => {
+  const SignOut = async (token) => {
+    const apiHost = "http://localhost:8000/api";
+    try {
+      const res = await axios.post(`${apiHost}/auth/logout`, {
+        token,
+      });
+      const accessToken = res.data.access_token;
+      logout(accessToken);
+      navigation.push("AuthScreen");
+    } catch (e) {
+      navigation.push("CreateAccount");
+    }
+  };
   return (
     <ScreenContainer>
       <Content>
@@ -47,7 +62,13 @@ export const Config = ({ navigation }) => {
           </ListItem>
           <ListItem itemDivider></ListItem>
           <ListItem>
-            <Text>ログアウト</Text>
+            <TouchableHighlight
+              onPress={() => {
+                SignOut();
+              }}
+            >
+              <Text>ログアウト</Text>
+            </TouchableHighlight>
           </ListItem>
         </List>
       </Content>
