@@ -9,11 +9,11 @@ import {
   Icon,
   Input,
   Left,
+  DatePicker,
 } from "native-base";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../module/auth/index";
 import { vw } from "react-native-expo-viewport-units";
 import axios from "axios";
+import moment from "moment";
 
 axios.interceptors.response.use(
   (response) => {
@@ -62,26 +62,11 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const ProfileRegister = ({ navigation }) => {
-  const [selected2, setSelected2] = useState("undefined");
-  function onValueChange2() {
-    setSelected2({
-      selected2: value,
-    });
-  }
-  const items = [
-    { age: 24, description: "初めまして", place: "東京都" },
-    { age: 24, description: "初めまして", place: "東京都" },
-    { age: 24, description: "初めまして", place: "東京都" },
-    { age: 24, description: "初めまして", place: "東京都" },
-    { age: 24, description: "初めまして", place: "東京都" },
-    { age: 24, description: "初めまして", place: "東京都" },
-  ];
+  const [sex, setSex] = useState("male");
+  const [income, setIncome] = useState("300");
+  const [date, setDate] = useState("");
+  const [prefecture, setPrefecture] = useState("");
 
-  const events = [
-    { age: 24, description: "初めまして", place: "東京都" },
-    { age: 24, description: "初めまして", place: "東京都" },
-    { age: 24, description: "初めまして", place: "東京都" },
-  ];
   return (
     <ScreenContainer>
       <Form>
@@ -91,62 +76,66 @@ export const ProfileRegister = ({ navigation }) => {
         </Item>
         <Item picker>
           <Left>
-            <Text>職種</Text>
+            <Text>性別</Text>
           </Left>
           <Picker
-            mode="dropdown"
-            iosIcon={<Icon name="arrow-down" />}
-            placeholder="自営業"
-            placeholderStyle={{ color: "#bfc6ea" }}
-            placeholderIconColor="#007aff"
-            selectedValue={selected2}
-            onValueChange={onValueChange2.bind(this)}
-          ></Picker>
+            selectedValue={sex}
+            style={{ width: 120 }}
+            onValueChange={(itemValue) => setSex(itemValue)}
+          >
+            <Picker.Item label="男性" value="male" />
+            <Picker.Item label="女性" value="female" />
+          </Picker>
         </Item>
+
         <Item picker>
           <Left>
-            <Text style={styles.listText}>職場</Text>
+            <Text style={styles.listText}>年収</Text>
           </Left>
           <Picker
             mode="dropdown"
-            iosIcon={<Icon name="arrow-down" />}
-            style={{ width: undefined }}
-            placeholder="WINDII"
-            placeholderStyle={{ color: "#bfc6ea" }}
-            placeholderIconColor="#007aff"
-            selectedValue={selected2}
-            onValueChange={onValueChange2.bind(this)}
-          ></Picker>
+            style={{ width: 120 }}
+            selectedValue={income}
+            onValueChange={(itemValue) => setIncome(itemValue)}
+          >
+            <Picker.Item label="〜300万円" value="300" />
+            <Picker.Item label="300万円〜" value="500" />
+          </Picker>
         </Item>
         <Item picker>
           <Left style={styles.listText}>
-            <Text>年齢</Text>
+            <Text>居住地</Text>
           </Left>
           <Picker
             mode="dropdown"
             iosIcon={<Icon name="arrow-down" />}
             style={{ width: undefined }}
-            placeholder="28"
-            placeholderStyle={{ color: "#bfc6ea" }}
-            placeholderIconColor="#007aff"
-            selectedValue={selected2}
-            onValueChange={onValueChange2.bind(this)}
-          ></Picker>
+            selectedValue={prefecture}
+            onValueChange={(itemValue) => setPrefecture(itemValue)}
+          >
+            <Picker.Item label="東京都" value="tokyo" />
+            <Picker.Item label="大阪" value="oosaka" />
+          </Picker>
         </Item>
         <Item picker>
           <Left>
-            <Text>身長</Text>
+            <Text>生年月日</Text>
           </Left>
-          <Picker
-            mode="dropdown"
-            iosIcon={<Icon name="arrow-down" />}
-            style={{ width: undefined }}
-            placeholder="170"
-            placeholderStyle={{ color: "#bfc6ea" }}
-            placeholderIconColor="#007aff"
-            selectedValue={selected2}
-            onValueChange={onValueChange2.bind(this)}
-          ></Picker>
+          <DatePicker
+            defaultDate={new Date(1990, 4, 4)}
+            minimumDate={new Date(1940, 1, 1)}
+            maximumDate={new Date(2010, 12, 31)}
+            locale={"ja"}
+            timeZoneOffsetInMinutes={undefined}
+            modalTransparent={false}
+            animationType={"fade"}
+            androidMode={"default"}
+            placeHolderText="Select date"
+            textStyle={{ color: "green" }}
+            placeHolderTextStyle={{ color: "#d3d3d3" }}
+            onDateChange={setDate}
+            disabled={false}
+          />
         </Item>
         <Item>
           <Input style={styles.item} placeholder="メールアドレス" />
