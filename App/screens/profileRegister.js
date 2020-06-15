@@ -62,17 +62,59 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const ProfileRegister = ({ navigation }) => {
+  const [name, setName] = useState("male");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("male");
   const [sex, setSex] = useState("male");
   const [income, setIncome] = useState("300");
-  const [date, setDate] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [prefecture, setPrefecture] = useState("");
+
+  function handleSubmit() {
+    if (name && email && password && sex && income && birthday && prefecture) {
+      register(name, email, password, sex, income, birthday, prefecture);
+      console.log(name);
+    } else {
+      console.log("error");
+    }
+  }
+  const register = async (
+    name,
+    email,
+    password,
+    sex,
+    income,
+    birthday,
+    prefecture
+  ) => {
+    const apiHost = "http://localhost:8000/api";
+    try {
+      const res = await axios.post(`${apiHost}/auth/register`, {
+        email,
+        name,
+        password,
+        sex,
+        income,
+        birthday,
+        prefecture,
+      });
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <ScreenContainer>
       <Form>
         <Text style={styles.introHead}>まずはあなたについて教えてください</Text>
         <Item>
-          <Input style={styles.item} placeholder="ニックネーム" />
+          <Input
+            style={styles.item}
+            name="name"
+            onChangeText={(value) => setName(value)}
+            placeholder="ニックネーム"
+          />
         </Item>
         <Item picker>
           <Left>
@@ -133,20 +175,32 @@ export const ProfileRegister = ({ navigation }) => {
             placeHolderText="Select date"
             textStyle={{ color: "green" }}
             placeHolderTextStyle={{ color: "#d3d3d3" }}
-            onDateChange={setDate}
+            onDateChange={setBirthday}
             disabled={false}
           />
         </Item>
         <Item>
-          <Input style={styles.item} placeholder="メールアドレス" />
+          <Input
+            style={styles.item}
+            name="email"
+            placeholder="メールアドレス"
+            onChangeText={(value) => setEmail(value)}
+          />
         </Item>
         <Item>
-          <Input style={styles.item} placeholder="パスワード" />
+          <Input
+            style={styles.item}
+            name="password"
+            onChangeText={(value) => setPassword(value)}
+            placeholder="パスワード"
+          />
         </Item>
       </Form>
       <Button
         style={styles.login}
-        onPress={() => navigation.push("IntroPlanStackScreen")}
+        onPress={() => {
+          handleSubmit();
+        }}
       >
         <Text>次へ</Text>
       </Button>
