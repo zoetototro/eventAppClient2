@@ -52,50 +52,66 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const IntroPlan = ({ navigation }) => {
+  const [event, setEvent] = useState("ランチ");
+  const [eventDetail, setEventDetail] = useState("");
   return (
     <ScreenContainer>
       <Text style={styles.introHead}>理想のデートを教えてください</Text>
-      <Button
-        bordered
-        outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroPlanDetailStackScreen")}
-      >
-        <Text primary>ランチ</Text>
-      </Button>
-      <Button
-        bordered
-        outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroPlanDetailStackScreen")}
-      >
-        <Text primary>ディナー</Text>
-      </Button>
-      <Button
-        bordered
-        outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroPlanDetailStackScreen")}
-      >
-        <Text primary>その他</Text>
-      </Button>
-      <Text style={styles.introHead}>
-        行きたい店やプランがあれば是非教えてください（任意）
-      </Text>
       <Form>
+        <Button
+          bordered
+          outline
+          style={styles.login}
+          onPress={() => {
+            setEvent("ランチ");
+            console.log(event);
+          }}
+        >
+          <Text primary>ランチ</Text>
+        </Button>
+        <Button
+          bordered
+          outline
+          style={styles.login}
+          onPress={() => {
+            setEvent("ディナー");
+            console.log(event);
+          }}
+        >
+          <Text primary>ディナー</Text>
+        </Button>
+        <Button
+          bordered
+          outline
+          style={styles.login}
+          onPress={() => {
+            setEvent("その他");
+            console.log(event);
+          }}
+        >
+          <Text primary>その他</Text>
+        </Button>
+        <Text style={styles.introHead}>
+          行きたい店やプランがあれば是非教えてください（任意）
+        </Text>
         <Textarea
           style={styles.textArea}
           rowSpan={3}
           bordered
           placeholder="例）新宿・叙々苑"
+          value={eventDetail}
+          onChangeText={(text) => {
+            setEventDetail(text);
+            console.log(eventDetail);
+          }}
         />
+        <Button
+          style={styles.login}
+          onPress={() => navigation.push("IntroPlanDetailStackScreen")}
+        >
+          <Text>次へ</Text>
+        </Button>
       </Form>
-      <Button
-        style={styles.login}
-        onPress={() => navigation.push("IntroPlanDetailStackScreen")}
-      >
-        <Text>次へ</Text>
-      </Button>
     </ScreenContainer>
   );
 };
