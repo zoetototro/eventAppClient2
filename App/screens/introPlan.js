@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
   },
   active: {
     backgroundColor: "#007aff",
-    color: "#ffffff",
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",

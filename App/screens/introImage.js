@@ -16,16 +16,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  logo: {
-    width: 240,
-    height: 240,
-  },
-  item: {
-    width: vw(100),
-    fontSize: 14,
-  },
-  itemWrap: {
-    marginVertical: 16,
+  uploadArea: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    backgroundColor: "#61dafb",
+    marginBottom: 24,
   },
   register: {
     fontSize: 14,
@@ -54,6 +50,7 @@ export const IntroImage = ({ navigation }) => {
       <View style={styles.logoWrap}>
         <Text style={styles.introHead}>最後に画像をアップしましょう</Text>
         <Text style={styles.introHead}>デートへのお誘いが格段に増えます</Text>
+        <Item style={styles.uploadArea}></Item>
         <Button
           style={styles.login}
           onPress={() => navigation.push("DrawerScreen")}
