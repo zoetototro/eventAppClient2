@@ -13,6 +13,7 @@ import {
 } from "native-base";
 import { vw } from "react-native-expo-viewport-units";
 import axios from "axios";
+import { login } from "../module/auth/index";
 
 axios.interceptors.response.use(
   (response) => {
@@ -98,11 +99,27 @@ export const ProfileRegister = ({ navigation }) => {
         prefecture,
       });
       console.log(res);
+      signIn(email, password);
+      () => navigation.push("IntroPlanStackScreen");
     } catch (e) {
       console.log(e);
     }
   };
 
+  const signIn = async (email, password) => {
+    const apiHost = "http://localhost:8000/api";
+    try {
+      const res = await axios.post(`${apiHost}/auth/login`, {
+        email,
+        password,
+      });
+      const accessToken = res.data.access_token;
+      login(accessToken);
+      console.log(accessToken);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <ScreenContainer>
       <Form>
@@ -199,6 +216,7 @@ export const ProfileRegister = ({ navigation }) => {
         style={styles.login}
         onPress={() => {
           handleSubmit();
+          navigation.push("IntroPlanStackScreen");
         }}
       >
         <Text>次へ</Text>
