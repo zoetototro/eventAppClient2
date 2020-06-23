@@ -13,7 +13,6 @@ import {
 } from "native-base";
 import { vw } from "react-native-expo-viewport-units";
 import axios from "axios";
-import moment from "moment";
 
 axios.interceptors.response.use(
   (response) => {
