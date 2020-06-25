@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { List, ListItem, Text, Left, Right, Icon, Button } from "native-base";
 import { ScrollView } from "react-native-gesture-handler";
+import axios from "axios";
+import ReactNative, { AsyncStorage } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +29,23 @@ const styles = StyleSheet.create({
 const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
+
+const getProfile = async () => {
+  const value = await AsyncStorage.getItem("token");
+  const apiHost = "http://localhost:8000/api";
+  try {
+    const res = await axios.post(`${apiHost}/auth/me`, value, {
+      headers: { Authorization: `Bearer ${value}` },
+    });
+    console.log(res);
+  } catch (e) {
+    console.log(e);
+  }
+};
 export const Profile = ({ navigation }) => {
+  useEffect(() => {
+    getProfile();
+  });
   return (
     <ScreenContainer>
       <Image

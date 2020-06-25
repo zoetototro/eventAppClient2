@@ -122,6 +122,7 @@ storeData = async (token) => {
   try {
     await AsyncStorage.setItem("token", token);
     const value = await AsyncStorage.getItem("token");
+    console.log(value);
     () => navigation.push("CreateAccount");
   } catch (error) {
     // Error saving data
