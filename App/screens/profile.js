@@ -4,6 +4,7 @@ import { List, ListItem, Text, Left, Right, Icon, Button } from "native-base";
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
 import ReactNative, { AsyncStorage } from "react-native";
+import { setPlaneDetection } from "expo/build/AR";
 
 const styles = StyleSheet.create({
   container: {
@@ -30,22 +31,24 @@ const ScreenContainer = ({ children }) => (
   <View style={styles.container}>{children}</View>
 );
 
-const getProfile = async () => {
-  const value = await AsyncStorage.getItem("token");
-  const apiHost = "http://localhost:8000/api";
-  try {
-    const res = await axios.post(`${apiHost}/auth/me`, value, {
-      headers: { Authorization: `Bearer ${value}` },
-    });
-    console.log(res);
-  } catch (e) {
-    console.log(e);
-  }
-};
 export const Profile = ({ navigation }) => {
+  const [data, setData] = useState({ hits: [] });
   useEffect(() => {
     getProfile();
-  });
+  }, []);
+  const getProfile = async () => {
+    const value = await AsyncStorage.getItem("token");
+    const apiHost = "http://localhost:8000/api";
+    try {
+      const res = await axios.post(`${apiHost}/auth/me`, value, {
+        headers: { Authorization: `Bearer ${value}` },
+      });
+      console.log(res);
+      setData(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <ScreenContainer>
       <Image
@@ -59,7 +62,7 @@ export const Profile = ({ navigation }) => {
       </Button>
       <View style={styles.sectionContainer}>
         <View style={styles.flex}>
-          <Text style={styles.largeText}>キャサリン</Text>
+          <Text style={styles.largeText}>{data.name}</Text>
           <Text style={styles.mediumText}>25歳</Text>
         </View>
         <Text style={styles.mediumText}>
@@ -89,7 +92,7 @@ export const Profile = ({ navigation }) => {
             <Text style={styles.mediumText}>居住地</Text>
           </Left>
           <Right>
-            <Text style={styles.mediumText}>ロサンゼルス</Text>
+            <Text style={styles.mediumText}>{data.prefecture}</Text>
           </Right>
         </ListItem>
         <ListItem>
@@ -97,7 +100,7 @@ export const Profile = ({ navigation }) => {
             <Text style={styles.mediumText}>年収</Text>
           </Left>
           <Right>
-            <Text style={styles.mediumText}>800~1000万</Text>
+            <Text style={styles.mediumText}>{data.income}</Text>
           </Right>
         </ListItem>
       </List>
