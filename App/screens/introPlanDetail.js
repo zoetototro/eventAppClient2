@@ -12,21 +12,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  item: {
-    width: vw(100),
-    fontSize: 14,
-  },
-  itemWrap: {
-    marginVertical: 16,
-  },
   register: {
     fontSize: 14,
     color: "#0179fe",
-  },
-  login: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 8,
   },
   introHead: {
     width: vw(100),
@@ -37,6 +25,22 @@ const styles = StyleSheet.create({
   textArea: {
     marginBottom: 24,
   },
+  active: {
+    backgroundColor: "#007aff",
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
+  },
+  button: {
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
+  },
+  activeText: {
+    color: "#007aff",
+  },
 });
 
 const ScreenContainer = ({ children }) => (
@@ -44,6 +48,7 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const IntroPlanDetail = ({ navigation }) => {
+  const [request, setRequest] = useState("");
   return (
     <ScreenContainer>
       <Text style={styles.introHead}>
@@ -52,34 +57,52 @@ export const IntroPlanDetail = ({ navigation }) => {
       <Button
         bordered
         outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroImageStackScreen")}
+        onPress={() => {
+          setRequest("奢ってほしい");
+          console.log(request);
+        }}
+        style={[request == "奢ってほしい" ? styles.active : styles.button]}
       >
-        <Text primary>奢ってほしい</Text>
+        <Text style={[request == "奢ってほしい" ? "" : styles.activeText]}>
+          奢ってほしい
+        </Text>
       </Button>
       <Button
         bordered
         outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroImageStackScreen")}
+        onPress={() => {
+          setRequest("高収入");
+          console.log(request);
+        }}
+        style={[request == "高収入" ? styles.active : styles.button]}
       >
-        <Text primary>高収入</Text>
+        <Text style={[request == "高収入" ? "" : styles.activeText]}>
+          高収入
+        </Text>
       </Button>
       <Button
         bordered
         outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroImageStackScreen")}
+        onPress={() => {
+          setRequest("イケメン");
+        }}
+        style={[request == "イケメン" ? styles.active : styles.button]}
       >
-        <Text primary>イケメン</Text>
+        <Text style={[request == "イケメン" ? "" : styles.activeText]}>
+          イケメン
+        </Text>
       </Button>
       <Button
         bordered
         outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroImageStackScreen")}
+        onPress={() => {
+          setRequest("面白い");
+        }}
+        style={[request == "面白い" ? styles.active : styles.button]}
       >
-        <Text primary>面白い</Text>
+        <Text style={[request == "面白い" ? "" : styles.activeText]}>
+          面白い
+        </Text>
       </Button>
       <Text style={styles.introHead}>
         他にお相手に求めるものがあれば是非教えてください（任意）
@@ -89,11 +112,11 @@ export const IntroPlanDetail = ({ navigation }) => {
           style={styles.textArea}
           rowSpan={3}
           bordered
-          placeholder="例）新宿・叙々苑"
+          placeholder="例）筋肉質で頼り甲斐がある"
         />
       </Form>
       <Button
-        style={styles.login}
+        style={styles.button}
         onPress={() => navigation.push("IntroImageStackScreen")}
       >
         <Text>次へ</Text>

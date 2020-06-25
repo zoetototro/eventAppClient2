@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
-import { Input, Text, Item, Button, Form, Textarea } from "native-base";
+import {
+  Input,
+  Text,
+  Item,
+  Button,
+  Form,
+  Textarea,
+  Radio,
+  ListItem,
+  Right,
+  Left,
+} from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../module/auth/index";
 import { vw } from "react-native-expo-viewport-units";
@@ -31,11 +42,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#0179fe",
   },
-  login: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 8,
-  },
   introHead: {
     width: vw(100),
     fontSize: 14,
@@ -45,6 +51,22 @@ const styles = StyleSheet.create({
   textArea: {
     marginBottom: 24,
   },
+  active: {
+    backgroundColor: "#007aff",
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
+  },
+  button: {
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
+  },
+  activeText: {
+    color: "#FFF",
+  },
 });
 
 const ScreenContainer = ({ children }) => (
@@ -52,50 +74,74 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const IntroPlan = ({ navigation }) => {
+  const [event, setEvent] = useState("ランチ");
+  const [eventDetail, setEventDetail] = useState("");
   return (
     <ScreenContainer>
       <Text style={styles.introHead}>理想のデートを教えてください</Text>
-      <Button
-        bordered
-        outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroPlanDetailStackScreen")}
-      >
-        <Text primary>ランチ</Text>
-      </Button>
-      <Button
-        bordered
-        outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroPlanDetailStackScreen")}
-      >
-        <Text primary>ディナー</Text>
-      </Button>
-      <Button
-        bordered
-        outline
-        style={styles.login}
-        onPress={() => navigation.push("IntroPlanDetailStackScreen")}
-      >
-        <Text primary>その他</Text>
-      </Button>
-      <Text style={styles.introHead}>
-        行きたい店やプランがあれば是非教えてください（任意）
-      </Text>
       <Form>
+        <Button
+          bordered
+          outline
+          onPress={() => {
+            setEvent("ランチ");
+            console.log(event);
+          }}
+          style={[event == "ランチ" ? styles.active : styles.button]}
+        >
+          <Text style={[event == "ランチ" ? styles.activeText : ""]}>
+            ランチ
+          </Text>
+        </Button>
+        <Button
+          bordered
+          outline
+          onPress={() => {
+            setEvent("ディナー");
+            console.log(event);
+          }}
+          style={[event == "ディナー" ? styles.active : styles.button]}
+        >
+          <Text style={[event == "ディナー" ? styles.activeText : ""]}>
+            ディナー
+          </Text>
+        </Button>
+        <Button
+          bordered
+          outline
+          onPress={() => {
+            setEvent("その他");
+            console.log(event);
+          }}
+          selected={false}
+          style={[event == "その他" ? styles.active : styles.button]}
+        >
+          <Text style={[event == "その他" ? styles.activeText : ""]}>
+            その他
+          </Text>
+          <Radio color={"#f0ad4e"} selectedColor={"#5cb85c"} selected={false} />
+        </Button>
+        <Text style={styles.introHead}>
+          行きたい店やプランがあれば是非教えてください（任意）
+        </Text>
         <Textarea
           style={styles.textArea}
           rowSpan={3}
           bordered
           placeholder="例）新宿・叙々苑"
+          value={eventDetail}
+          onChangeText={(text) => {
+            setEventDetail(text);
+            console.log(eventDetail);
+          }}
         />
+        <Button
+          style={styles.button}
+          onPress={() => navigation.push("IntroPlanDetailStackScreen")}
+        >
+          <Text>次へ</Text>
+        </Button>
       </Form>
-      <Button
-        style={styles.login}
-        onPress={() => navigation.push("IntroPlanDetailStackScreen")}
-      >
-        <Text>次へ</Text>
-      </Button>
     </ScreenContainer>
   );
 };
