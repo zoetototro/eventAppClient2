@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { Input, Text, Item, Button, Form } from "native-base";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../module/auth/index";
-import { vw } from "react-native-expo-viewport-units";
 import axios from "axios";
-
+import * as ImagePicker from "expo-image-picker";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+import { vw } from "react-native-expo-viewport-units";
 const styles = StyleSheet.create({
   container: {
     padding: 16,
@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
     borderRadius: 80,
     backgroundColor: "#61dafb",
     marginBottom: 24,
+  },
+  logo: {
+    width: 160,
+    height: 160,
   },
   register: {
     fontSize: 14,
@@ -45,16 +49,58 @@ const ScreenContainer = ({ children }) => (
 );
 
 export const IntroImage = ({ navigation }) => {
+  const [image, setImage] = useState(null);
+  useEffect(() => {
+    getPermissionAsync();
+  });
+  const uploadImage = async () => {
+    const apiHost = "http://localhost:8000/api";
+    try {
+      const res = await axios.post(`${apiHost}/auth/upload`, {
+        image,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
+
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setImage({ image: result.uri });
+      }
+    } catch (E) {
+      console.log("hi", E);
+    }
+  };
+
   return (
     <ScreenContainer>
       <View style={styles.logoWrap}>
         <Text style={styles.introHead}>最後に画像をアップしましょう</Text>
         <Text style={styles.introHead}>デートへのお誘いが格段に増えます</Text>
-        <Item style={styles.uploadArea}></Item>
-        <Button
-          style={styles.login}
-          onPress={() => navigation.push("DrawerScreen")}
-        >
+
+        {image ? (
+          <Image source={{ uri: image.image }} style={styles.uploadArea} />
+        ) : (
+          <Button style={styles.uploadArea} onPress={pickImage}></Button>
+        )}
+        <Button style={styles.login} onPress={() => uploadImage()}>
           <Text>次へ</Text>
         </Button>
       </View>
