@@ -56,7 +56,9 @@ export const IntroImage = ({ navigation }) => {
   const uploadImage = async () => {
     const apiHost = "http://localhost:8000/api";
     try {
-      const res = await axios.post(`${apiHost}/auth/post`, {});
+      const res = await axios.post(`${apiHost}/auth/upload`, {
+        image,
+      });
     } catch (e) {
       console.log(e);
     }
@@ -82,10 +84,8 @@ export const IntroImage = ({ navigation }) => {
       if (!result.cancelled) {
         setImage({ image: result.uri });
       }
-
-      console.log(image.image);
     } catch (E) {
-      console.log(E);
+      console.log("hi", E);
     }
   };
 
@@ -94,16 +94,13 @@ export const IntroImage = ({ navigation }) => {
       <View style={styles.logoWrap}>
         <Text style={styles.introHead}>最後に画像をアップしましょう</Text>
         <Text style={styles.introHead}>デートへのお誘いが格段に増えます</Text>
-        <Button style={styles.uploadArea} onPress={pickImage}></Button>
+
         {image ? (
-          <Image source={{ uri: image.image }} style={styles.logo} />
+          <Image source={{ uri: image.image }} style={styles.uploadArea} />
         ) : (
-          <View />
+          <Button style={styles.uploadArea} onPress={pickImage}></Button>
         )}
-        <Button
-          style={styles.login}
-          onPress={() => navigation.push("DrawerScreen")}
-        >
+        <Button style={styles.login} onPress={() => uploadImage()}>
           <Text>次へ</Text>
         </Button>
       </View>
