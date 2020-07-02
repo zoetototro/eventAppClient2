@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
+import { AsyncStorage } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import {
   Container,
@@ -13,6 +14,7 @@ import {
   Thumbnail,
   Text,
 } from "native-base";
+import axios from "axios";
 const styles = StyleSheet.create({
   button: {
     paddingHorizontal: 20,
@@ -22,17 +24,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const data = Array(20)
-  .fill("")
-  .map((_, i) => ({ key: `${i}`, text: `item #${i}` }));
-
 export const Message = ({ navigation }) => {
-  const [listViewData, setlistViewData] = useState(data);
+  const [data, setData] = useState({ hits: [] });
+  useEffect(() => {
+    getProfile();
+  }, []);
+  const getProfile = async () => {
+    const value = await AsyncStorage.getItem("token");
+    console.log("storage", value);
+    const apiHost = "http://localhost:8000/api";
+    try {
+      const res = await axios.get(`${apiHost}/auth/message`, {
+        headers: { Authorization: `Bearer ${value}` },
+      });
+      console.log(res);
+      setData(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Container>
       <Content>
         <SwipeListView
-          data={listViewData}
+          data={data}
           renderItem={(data, rowMap) => (
             <List>
               <ListItem onPress={() => navigation.push("ChatDetail")} avatar>
@@ -44,7 +59,7 @@ export const Message = ({ navigation }) => {
                   />
                 </Left>
                 <Body>
-                  <Text>Kumar Pratik</Text>
+                  <Text>{data.item.name}</Text>
                   <Text note>
                     Doing what you like will always keep you happy . .
                   </Text>

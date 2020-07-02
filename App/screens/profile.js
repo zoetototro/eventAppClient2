@@ -62,7 +62,7 @@ export const Profile = ({ navigation }) => {
       </Button>
       <View style={styles.sectionContainer}>
         <View style={styles.flex}>
-          <Text style={styles.largeText}>{data.name}</Text>
+          <Text style={styles.largeText}>{name}</Text>
           <Text style={styles.mediumText}>25歳</Text>
         </View>
         <Text style={styles.mediumText}>
