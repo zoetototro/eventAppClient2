@@ -65,8 +65,8 @@ export const SignIn = ({ navigation }) => {
         email,
         password,
       });
-      const accessToken = res.data.access_token;
-      login(accessToken);
+      //const accessToken = res.data.access_token;
+      //login(accessToken);
       navigation.push("DrawerScreen");
     } catch (e) {
       console.log(e);
